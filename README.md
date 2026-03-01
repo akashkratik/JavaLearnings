@@ -1,2 +1,3 @@
 # JavaLearnings
 - HashMap
+- Streams
