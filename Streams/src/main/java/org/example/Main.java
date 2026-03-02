@@ -10,7 +10,14 @@ public class Main {
         waysToCreateStreams();
         intermediateOperations();
         terminalOperations();
+        parallelStream();
     }
+
+    /*
+    * Once a Terminal operation is used on a Stream, it is closed/consumed and cannot be used
+    * again for another terminal operation.
+    *
+    * */
 
     private static void waysToCreateStreams() {
         // Ways to create stream
@@ -141,6 +148,11 @@ public class Main {
 
         // findAny : finds any random element of the stream
 
+    }
 
+    public static void parallelStream() {
+        List<Integer> numbers = Arrays.asList(1, 3, 2, 5, 3, 7, 3, 4);
+        System.out.println("Parallel Stream");
+        numbers.parallelStream().map(val -> val * val).forEach(x -> System.out.println(x));
     }
 }
