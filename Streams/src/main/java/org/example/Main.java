@@ -1,13 +1,15 @@
 package org.example;
 
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) {
-        //waysToCreateStreams();
+        waysToCreateStreams();
         intermediateOperations();
+        terminalOperations();
     }
 
     private static void waysToCreateStreams() {
@@ -92,4 +94,53 @@ public class Main {
 
     }
 
+    private static void terminalOperations() {
+        //Most of terminal operations are self explanatory or used in intermediate
+
+        // forEach
+        // .forEach(x -> {})
+
+        // toArray Collects the elements of the stream into an Array
+        List<Integer> numbers = Arrays.asList(1, 3, 2, 5, 3, 7, 3, 4);
+
+        Object[] filteredNumberArr1 = numbers.stream().filter(val -> val >= 3).toArray();
+
+        Integer[] filteredNumberArr2 = numbers.stream().filter(val -> val >= 3).toArray(size -> new Integer[size]);
+
+        // reduce: does reduction on the elements of the stream, Perform associative aggregation function
+        // returns Option<T>
+        List<Integer> numbers2 = Arrays.asList(1, 3, 2, 5, 3, 7, 3, 4);
+
+        Optional<Integer> reducedValue = numbers.stream().reduce((a, b) -> a + b);
+        System.out.println(reducedValue.get());
+
+        // collect: can be used to collect the elements of the stream into an list
+        List<Integer> numbers3 = Arrays.asList(5, 37, 54, 7, 73, 32);
+
+        List<Integer> collectedList = numbers3.stream().filter(x -> x % 2 == 0).collect(Collectors.toList());
+
+        // min and max(based on comparator
+        List<Integer> listForMin = Arrays.asList(2, 4, 1, 52, 23);
+        Optional<Integer> minValue = listForMin.stream().min((a, b) -> a - b);
+        System.out.println("Min value is: " + minValue.get());
+
+        //count
+        // returns count
+
+        // anyMatch(): returns boolean
+        List<Integer> listForAnyMatch = Arrays.asList(2, 4, 1, 52, 23);
+        boolean hasValueGreaterThan3 = listForAnyMatch.stream().anyMatch(a -> a > 3);
+
+        // similarly allMatch, noneMatch
+
+        // findFirst
+        List<Integer> listForFindFirst = Arrays.asList(2, 4, 1, 52, 23);
+
+        Optional<Integer> findFirst = listForFindFirst.stream().filter(x -> x > 10).findFirst();
+        System.out.println("First: " + findFirst.get());
+
+        // findAny : finds any random element of the stream
+
+
+    }
 }
